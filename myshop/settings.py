@@ -24,9 +24,9 @@ SECRET_KEY=os.environ.get('SECRET_KEY')
 SECRET_KEY = '(i9b4aes#h1)m3h_8jh^duxrdh$4pu8-q5vkba2yf$ptd1lev_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["bongshop.herokuapp.com"]
 
 
 # Application definition
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'novaposhta.NovaPoshtaAppConfig',
+    'novaposhta',
 
     'shop',
     'cart',
@@ -94,13 +94,17 @@ WSGI_APPLICATION = 'myshop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'bongs_shop_db',
-        'USER' : 'admin',
-        'PASSWORD' : '90819',
-        'HOST' : '127.0.0.1',
+        'NAME': DB_NAME,
+        'USER' : DB_USER,
+        'PASSWORD' : DB_PASSWORD,
+        'HOST' : DB_HOST,
         'PORT': '5432',
     }
 }
+        
+
+db = dj_database_url.config()
+DATABASES['default'].update(db)    
         
     
 
@@ -151,15 +155,19 @@ USE_DJANGO_JQUERY = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/')]
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-REDIS_HOST = 'localhost'
-REDIS_PORT = 6379
-REDIS_DB = 1
+# REDIS_HOST = 'localhost'
+# REDIS_PORT = 6379
+# REDIS_DB = 1
 
 
 
+DB_NAME = os.environ.get('DB_NAME')
+DB_PASSWORD = os.environ.get('DB_PASSWORD')
+DB_HOST = os.environ.get('DB_HOST')
+DB_USER = os.environ.get('DB_USER')
