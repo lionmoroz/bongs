@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}
+   
+{% endblock title %}
+{% block content %}
+
+    <!-- Start All Title Box -->
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Shop</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Shop</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+
+<!-- Start Shop Page  -->
+<div class="shop-box-inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">
+                </div>
+                <div class="col-xl-9 col-lg-9 col-sm-12 col-xs-12 shop-content-right">
+                    <div class="right-product-box">
+                        <h2>Test filter form</h2>
+
+                        <div class="search-product">
+                            <form method='get'>
+                                {% render_field myFilter.form.name class="form-control" placeholder="Пошук тут..." type="text" %}    
+                                <button type="submit"> <i class="fa fa-search"></i> </button>
+                            </form> 
+                        </div>
+                        <div class="filter-price-left">
+                            <div class="title-left">
+                                <h3>Price</h3>
+                            </div>
+                            <form method='get' >
+                                <div class="price-box-slider">                                
+                                    <p> 
+                                            <hr  id="slider-range"> 
+                                            {% csrf_token %}
+                                            {% render_field myFilter.form.min_price  type="text" id='min_price' class='rangeprice'%}
+                                            <label for="max_price'">Ваша Фамилия</label>
+                                            {% render_field myFilter.form.max_price type="text" id='max_price' name='max_price' class='rangeprice'  %} 
+                                            <button class="btn hvr-hover" type="submit">Filter</button>          
+                                    </p>
+                                </div>                               
+                            </form>
+                        </div>
+                        <div class="row">
+                            {% for product in products %} 
+                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                <div class="products-single fix">
+                                    <div class="box-img-hover">
+                                        <div class="type-lb">
+                                            <p class="sale">Sale</p>
+                                        </div>
+                                        <img src="{{product.main_image.url}}" class="img-fluid" alt="Image">
+                                        <div class="mask-icon">
+                                            <ul>
+                                                <li>
+                                                    {% comment %} <form action="{% url 'shop:cart_add_on_shopcart'  product.id product.get_absolute_url%}" method="post">
+                                                        <a href="" type=submit data-toggle="tooltip" data-placement="right" title="Купить"><i class="fa fa-shopping-cart"></i></a>
+                                                    </form> {% endcomment %}
+                                                </li>
+                                            </ul>  
+                                            <a class="cart" href="{{product.get_absolute_url}}">Посмотреть</a>
+                                        </div>
+                                    </div>
+                                    <div class="why-text full-width">
+                                        <h4>{{product.name}}</h4>
+                                        <h5> <del>$ {{product.price}}</del> $40.79</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endfor%}
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    	$(function() {
+		$("#slider-range").slider({
+			range: true,
+			min: 0,
+			max: 4000,
+			values: [1000, 3000],
+			slide: function(event, ui) {
+				$("#minsalarytxt").val(ui.values[0]) + $("#maxsalarytxt").val(ui.values[1]);
+			}
+		});
+		// $("#minsalarytxt").val("$" + $("#slider-range").slider("values", 0) +
+		// 	("#maxsalarytxt").val("$" + $("#slider-range").slider("values", 1)
+	});
+    </script>
+
+
+{% endblock content %}
