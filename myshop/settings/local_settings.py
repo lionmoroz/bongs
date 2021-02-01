@@ -20,7 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'h1t59z14nb2*3a8fmph(-k0snl=n$)9ceb@*a@jm)@nv+9sd=t'
+SECRET_KEY=os.environ.get('SECRET_KEY')
+SECRET_KEY = '(i9b4aes#h1)m3h_8jh^duxrdh$4pu8-q5vkba2yf$ptd1lev_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,13 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'novaposhta.NovaPoshtaAppConfig',
 
     'shop',
     'cart',
     'orders',
     'coupons',
     'information',
-    'novaposhta',
+    
 
     'smart_selects',
     'widget_tweaks',

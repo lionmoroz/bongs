@@ -1,5 +1,8 @@
-from .production import *
+
+from myshop.settings.production import *
+
 try:
-    from .local_settings import *
+    from myshop.settings.local_settings import *
 except ImportError:
     pass
+
