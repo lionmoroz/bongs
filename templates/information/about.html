@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}{% endblock title %}
+
+
+{% block content %}
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>О НАС</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="about-box-main">
+        <div class="container">
+            <div class="row">
+            {% for about in about %} 
+				<div class="col-lg-6">
+                    <div class="banner-frame"> <img class="img-fluid" src="{{about.photo.url}}" alt="" />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="noo-sh-title-top">Мы лучший магазин бонгов в СНГ </h2>
+                    <h3> {{about.tittle}}</h3>
+                    <p> {{about.text}}</p> 
+                    <a class="btn hvr-hover" href="{% url 'shop:product_list' %}">Заказать бонг</a>
+                </div>
+            {%endfor%}
+            </div>
+            <br>
+            <br>
+            <div class="title-all text-center">
+                <h1>Нашы приимущества</h1>                       
+            </div>
+            <div class="row my-5">
+            {%for b in benefits%}
+                <div class="col-sm-6 col-lg-4">
+                    <div class="service-block-inner">
+                        <h3>{{b.benefits_title}}</h3>
+                        <p>{{b.benefits_description}}</p>
+                    </div>
+                </div>
+            {%endfor%}
+            </div>
+            
+        </div>
+    </div>
+        
+{%endblock content%}
